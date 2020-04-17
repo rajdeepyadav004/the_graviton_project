@@ -1,9 +1,9 @@
 #include <iostream>
-#include <armadillo>
 
-#include "renderer/object.hpp"
-#include "renderer/models.hpp"
-#include "renderer/gl_util.hpp"
+
+#include "object.hpp"
+#include "models.hpp"
+#include "gl_util.hpp"
 
 
 extern GLFWwindow* window;
@@ -11,8 +11,6 @@ extern GLFWwindow* window;
 int main(){
     init_gl();
     
-    arma::Mat<double> A = arma::randu(4,4);
-    cout<<A<<endl;
 
     vector<render_component> objects;
     objects.push_back(render_component(get_cube()));
