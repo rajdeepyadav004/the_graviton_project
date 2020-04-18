@@ -1,7 +1,7 @@
 #include <iostream>
 
 
-#include "object.hpp"
+#include "render_component.hpp"
 #include "models.hpp"
 #include "gl_util.hpp"
 

@@ -1,32 +1,29 @@
 #include <iostream>
 #include <armadillo>
 
-#include "renderer/object.hpp"
 #include "renderer/models.hpp"
-#include "renderer/gl_util.hpp"
-
+#include "world.hpp"
 
 extern GLFWwindow* window;
+
+using namespace std;
+
 
 int main(){
     init_gl();
     
-    arma::Mat<double> A = arma::randu(4,4);
-    cout<<A<<endl;
 
-    vector<render_component> objects;
-    objects.push_back(render_component(get_cube()));
-    
-    objects.push_back(render_component(get_cube()));
 
-    objects[0].translate(vec3(-1.5,0,0));
-    objects[1].translate(vec3(1.5,0,0));
+    world main_world;
+    main_world.insert(rigidbody(1000,{0,0,0},{0,0,0}), render_component(get_cube()));
+    main_world.insert(rigidbody(1,{5,0,0},{0,sqrt(G * 1000 / 5),0}), render_component(get_cube()));
 
-    do{
-        objects[0].rotate(glm::radians(0.05f), vec3(0,1,0));
-        objects[1].rotate(glm::radians(0.05f), vec3(0,-1,0));
-        objects[0].set_position(vec3(-3,2,0));
-        render_gl(objects);
+    // veKush_back(rigidbody(1000,{0,0,0},{0,0,0}));
+
+
+    do{        
+        main_world.simulate(10000);
+        main_world.render();
     }
     
     while(glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&

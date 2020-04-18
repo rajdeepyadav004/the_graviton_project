@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <vector>
-#include "object.hpp"
+#include "render_component.hpp"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -11,7 +11,7 @@
 
 
 using namespace std;
-
+    
 void init_gl();
 void render_gl(vector<render_component> objects);
 void close_gl();
