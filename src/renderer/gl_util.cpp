@@ -6,7 +6,7 @@ using namespace glm;
 GLFWwindow * window;
 GLuint programID, MatrixID;
 mat4 mvp;
-
+camera main_camera;
 
 void init_gl(){
 
@@ -53,20 +53,24 @@ void init_gl(){
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
-	glm::mat4 Projection = glm::perspective(glm::radians(45.0f), (float)3/(float)2  , 0.1f, 100.0f);
-	glm::mat4 view = glm::lookAt(glm::vec3(0,0,10), glm::vec3(0,0,0), glm::vec3(0,1,0));
-	glm::mat4 Model = glm::mat4(1.0f);
+	main_camera.set_projection_param(glm::radians(45.0f), (float)3/(float)2  , 0.1f, 100.0f);
+	main_camera.set_view_param(glm::vec3(0,0,10), glm::vec3(0,0,0), glm::vec3(0,1,0));
 
-	mvp = Projection * view * Model;
+
 	MatrixID = glGetUniformLocation(programID, "MVP");
 
 }
 
 void render_gl(vector<render_component> objects){
 
+
+	main_camera.translate(vec3(0.001,0.001,0.001));
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glUseProgram(programID);    
+
+
+	mat4 mvp = main_camera.get_camera_matrix();
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
     for(auto it = objects.begin(); it!= objects.end(); ++it){
         it->render(programID);

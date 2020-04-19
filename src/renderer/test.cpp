@@ -22,7 +22,7 @@ int main(){
     // objects[1].translate(vec3(1.5,0,0));
 
     do{
-        objects[0].rotate(glm::radians(0.05f), vec3(0,0,1));
+        objects[0].rotate(glm::radians(0.05f), vec3(0,1,0));
         render_gl(objects);
     }
     
