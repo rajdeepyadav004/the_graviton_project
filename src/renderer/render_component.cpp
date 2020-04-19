@@ -65,7 +65,7 @@ void render_component::render(GLuint programID){
     glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
     glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*) 0);
 
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, m_mesh.triangle_strips);
+    glDrawArrays(m_mesh.mode, 0, m_mesh.triangle_strips);
     
     glDisableVertexAttribArray(0);    
     glDisableVertexAttribArray(1);

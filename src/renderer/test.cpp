@@ -13,17 +13,16 @@ int main(){
     
 
     vector<render_component> objects;
-    objects.push_back(render_component(get_cube()));
+    // objects.push_back(render_component(get_cube()));
     
-    objects.push_back(render_component(get_cube()));
+    objects.push_back(render_component(get_sphere(30)));
 
-    objects[0].translate(vec3(-1.5,0,0));
-    objects[1].translate(vec3(1.5,0,0));
+    // objects[0].translate(vec3(0,0,0));
+    objects[0].scale(vec3(3,3,3));
+    // objects[1].translate(vec3(1.5,0,0));
 
     do{
-        objects[0].rotate(glm::radians(0.05f), vec3(0,1,0));
-        objects[1].rotate(glm::radians(0.05f), vec3(0,-1,0));
-        objects[0].set_position(vec3(-3,2,0));
+        objects[0].rotate(glm::radians(0.05f), vec3(0,0,1));
         render_gl(objects);
     }
     
