@@ -13,7 +13,7 @@
 using namespace std;
     
 void init_gl();
-void render_gl(vector<render_component> objects);
+void render_gl(vector<render_component> objects, camera main_camera);
 void close_gl();
 
 #endif

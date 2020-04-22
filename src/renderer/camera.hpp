@@ -6,6 +6,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include "render_component.hpp"
 
 using namespace std;
 using namespace glm;
@@ -14,8 +16,8 @@ using namespace glm;
 class camera{
 
     GLfloat m_fov, m_aspect_ratio, m_near_clip, m_far_clip;
-    vec4 m_position, m_look_at;
-    vec3 m_up_vector;
+    glm::vec4 m_position, m_look_at;
+    glm::vec3 m_up_vector;
 
 public:
 
@@ -26,10 +28,12 @@ public:
     camera(GLfloat arg_fov, GLfloat arg_aspect_ratio, GLfloat arg_near_clip, GLfloat arg_far_clip);
     
     void set_projection_param(GLfloat arg_fov, GLfloat arg_aspect_ratio, GLfloat arg_near_clip, GLfloat arg_far_clip);
-    void set_view_param(vec3 arg_position, vec3 arg_look_at, vec3 arg_up_vector);
+    void set_view_param(glm::vec3 arg_position, glm::vec3 arg_look_at, glm::vec3 arg_up_vector);
 
-    void translate(vec3 displacement);
+    void translate(glm::vec3 displacement);
     mat4 get_camera_matrix();
+
+    void control(GLFWwindow* window);
 };
 
 

@@ -4,9 +4,7 @@ using namespace std;
 using namespace glm;
 
 GLFWwindow * window;
-GLuint programID, MatrixID;
-mat4 mvp;
-camera main_camera;
+GLuint programID, MatrixID, textureID;
 
 void init_gl(){
 
@@ -17,7 +15,6 @@ void init_gl(){
 	getchar();
 	exit(1);
 	}
-
 
 	glfwWindowHint(GLFW_SAMPLES, 4);
 	glfwWindowHint(GLFW_RESIZABLE,GL_FALSE);
@@ -34,8 +31,6 @@ void init_gl(){
 	}
 	glfwMakeContextCurrent(window);
 
-
-
 	if (glewInit() != GLEW_OK) {
 		cerr<<"Failed to initialize GLEW:"<<endl;
 		getchar();
@@ -46,26 +41,19 @@ void init_gl(){
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-
-	
     programID = LoadShaders("src/renderer/vShader.glsl", "src/renderer/fShader.glsl");
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
-	main_camera.set_projection_param(glm::radians(45.0f), (float)3/(float)2  , 0.1f, 100.0f);
-	main_camera.set_view_param(glm::vec3(0,0,10), glm::vec3(0,0,0), glm::vec3(0,1,0));
-
-
 	MatrixID = glGetUniformLocation(programID, "MVP");
-
+	textureID = glGetUniformLocation(programID, "myTextureSampler");
 }
 
-void render_gl(vector<render_component> objects){
+void render_gl(vector<render_component> objects, camera main_camera){
 
 
-	main_camera.translate(vec3(0.001,0.001,0.001));
-    
+	
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glUseProgram(programID);    
 
@@ -73,7 +61,7 @@ void render_gl(vector<render_component> objects){
 	mat4 mvp = main_camera.get_camera_matrix();
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
     for(auto it = objects.begin(); it!= objects.end(); ++it){
-        it->render(programID);
+        it->render();
     }
     glfwSwapBuffers(window);
     glfwPollEvents();

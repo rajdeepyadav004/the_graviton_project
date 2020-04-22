@@ -13,8 +13,13 @@ BIN_RENDER = bin/render
 BIN_PHYSICS = bin/physics
 BIN_GRAVITON = bin/graviton
 
-SRC_RENDER = src/renderer/test.cpp src/renderer/render_component.cpp src/renderer/models.cpp src/renderer/mesh.cpp src/renderer/gl_util.cpp src/renderer/shader.cpp src/renderer/camera.cpp
-INC_RENDER = src/renderer/render_component.h src/renderer/models.h src/renderer/mesh.h src/renderer/gl_util.hpp src/renderer/shader.hpp src/renderer/camera.hpp
+SRC_RENDER = src/renderer/test.cpp src/renderer/render_component.cpp src/renderer/models.cpp\
+			 src/renderer/mesh.cpp src/renderer/gl_util.cpp src/renderer/shader.cpp\
+			 src/renderer/camera.cpp src/renderer/texture.cpp
+INC_RENDER = src/renderer/render_component.h src/renderer/models.h src/renderer/mesh.h\
+			 src/renderer/gl_util.hpp src/renderer/shader.hpp src/renderer/camera.hpp\
+			 src/renderer/texture.hpp
+
 
 
 SRC_PHYSICS = src/physics_engine/test.cpp src/physics_engine/rigidBody.cpp 
@@ -22,12 +27,12 @@ INC_PHYSICS = src/physics_engine/rigidBody.hpp
 
 SRC_GRAVITON = src/main.cpp src/renderer/render_component.cpp src/renderer/models.cpp\
 			   src/renderer/mesh.cpp src/renderer/gl_util.cpp src/renderer/shader.cpp\
-			   src/renderer/camera.cpp\
+			   src/renderer/camera.cpp src/renderer/texture.cpp\
 			   src/physics_engine/rigidBody.cpp\
 			   src/world.cpp 
 INC_GRAVITON = src/renderer/render_component.h src/renderer/models.h src/renderer/mesh.h\
 			   src/renderer/gl_util.hpp src/renderer/shader.hpp src/renderer/camera.cpp\
-			   src/physics_engine/rigidBody.hpp\
+			   src/physics_engine/rigidBody.hpp src/renderer/texture.hpp\
 			   src/world.hpp
 
 

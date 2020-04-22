@@ -8,6 +8,6 @@
 
 mesh get_cube();
 mesh get_sphere(int tesselation);
-mesh get_sexy_sphere(int tesselation);
+// mesh get_sexy_sphere(int tesselation);
 
 #endif

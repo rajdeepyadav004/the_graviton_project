@@ -2,8 +2,9 @@
 
 using namespace std;
 
-world::world(){
-
+world::world(GLFWwindow* arg_window, camera arg_camera){
+    this->window = arg_window;
+    this->camera1 = arg_camera;
 }
 
 world::~world(){
@@ -34,5 +35,7 @@ void world::simulate(int iterations){
 }
 
 void world::render(){
-    render_gl(m_render_comps);
+
+    camera1.control(window);
+    render_gl(m_render_comps, camera1);
 }

@@ -2,8 +2,18 @@
 
 using namespace glm;
 
-const double pie = 3.14;
+const double pie = 3.14159;
 
+
+double restrain(double u){
+    if(u < 0)
+        return 0;
+    if(u > 1)
+        return 1;
+    else return u;
+
+
+}
 
 vec4 sphere_color_transform(vec4 vertex){
 
@@ -38,8 +48,12 @@ mesh get_cube(){
         vec4(1.f, 0.f, 0.f,1.f),
     };
 
+    
+
     vector<vec4> * cube_vertices = new vector<vec4>;
     vector<vec4>* cube_colors = new vector<vec4>;
+
+    vector<vec2>* cube_uvs = new vector<vec2>;
 
     *cube_vertices = {
         vertices[3],
@@ -75,47 +89,57 @@ mesh get_cube(){
         colors[0],
     };
 
-    return mesh(cube_vertices, cube_colors, 14, GL_TRIANGLE_STRIP);
+    for(auto it = cube_vertices->begin(); it!= cube_vertices->end();++it){
+        double x = (*it)[0], y = (*it)[1], z = (*it)[2];
+        double u = restrain(0.5 + atan2(z,x) / (2*pie));
+        double v = restrain(0.5 - asin(y) / pie);
+        cube_uvs->push_back(vec2(u,v));
+    }
+
+    return mesh(cube_vertices, cube_colors, cube_uvs, 14, GL_TRIANGLE_STRIP);
 }
 
-mesh get_sexy_sphere(int tesselation){
+// mesh get_sexy_sphere(int tesselation){
 
-    double step_lat = pie / (2*tesselation), step_lon = pie / tesselation;
-    vector<vec4> *sphere_vertices = new vector<vec4>, *sphere_colors = new vector<vec4>;
+//     double step_lat = pie / (2*tesselation), step_lon = pie / tesselation;
+//     vector<vec4> *sphere_vertices = new vector<vec4>, *sphere_colors = new vector<vec4>;
 
-    vector<vector<vec4>> vertices;
+//     vector<vector<vec4>> vertices;
 
-    for(double theta = -pie/2; theta<=pie/2; theta+=step_lat){
-        vector<vec4> temp;
-        for(double phi = 0; phi<2*pie; phi += step_lon){
+//     for(double theta = -pie/2; theta<=pie/2; theta+=step_lat){
+//         vector<vec4> temp;
+//         for(double phi = 0; phi<2*pie; phi += step_lon){
 
-            double x,y,z;
+//             double x,y,z;
 
-            x = cos(theta)*cos(phi);
-            y = cos(theta)*sin(phi);
-            z = sin(theta)*sin(phi);
+//             x = cos(theta)*cos(phi);
+//             y = cos(theta)*sin(phi);
+//             z = sin(theta)*sin(phi);
 
-            sphere_vertices->push_back(vec4(x,y,z,1));
-            sphere_colors->push_back((vec4(x,y,z,1)+vec4(1,1,1,1))*0.5f);
-        }
-    }    
+//             sphere_vertices->push_back(vec4(x,y,z,1));
+//             sphere_colors->push_back((vec4(x,y,z,1)+vec4(1,1,1,1))*0.5f);
+//         }
+//     }    
 
 
 
-    // return mesh(sphere_vertices, sphere_colors, sphere_vertices->size(), GL_TRIANGLE_STRIP);
-    return mesh(sphere_vertices, sphere_colors, sphere_vertices->size(), GL_TRIANGLES);
+//     // return mesh(sphere_vertices, sphere_colors, sphere_vertices->size(), GL_TRIANGLE_STRIP);
+//     return mesh(sphere_vertices, sphere_colors, sphere_vertices->size(), GL_TRIANGLES);
 
-}
+// }
 
 mesh get_sphere(int tesselation){
 
     double step_lat = pie / (2*tesselation), step_lon = pie / tesselation;
     vector<vec4> *sphere_vertices = new vector<vec4>, *sphere_colors = new vector<vec4>;
+    vector<vec2> *sphere_uvs = new vector<vec2>;
 
     vector<vector<vec4>> vertices;
+    vector<vector<vec2>> textures;
 
     for(double theta = -pie/2; theta<=pie/2; theta+=step_lat){
-        vector<vec4> temp;
+        vector<vec4> temp1;
+        vector<vec2> temp2;
         for(double phi = 0; phi<2*pie; phi += step_lon){
 
             double x,y,z;
@@ -124,9 +148,20 @@ mesh get_sphere(int tesselation){
             y = cos(theta)*sin(phi);
             z = sin(theta);
 
-            temp.push_back( vec4(x,y,z,1));
+            temp1.push_back(vec4(x,y,z,1));
+            
+            double u = 0.5 + atan2(z,x) / (2*pie);
+            double v = 0.5 - asin(y) / pie;
+
+            // u = phi / (2*pie);
+            // v = 0.5 + theta / (pie);
+
+
+            temp2.push_back(vec2(u,v));
         }
-        vertices.push_back(temp);
+
+        vertices.push_back(temp1);
+        textures.push_back(temp2);
     }    
 
 
@@ -136,6 +171,8 @@ mesh get_sphere(int tesselation){
         for(int lon = 0; lon<num_lon; lon++){
             sphere_vertices->push_back(vertices[lat][lon]);
             sphere_vertices->push_back(vertices[lat+1][lon]);
+            sphere_uvs->push_back(textures[lat][lon]);
+            sphere_uvs->push_back(textures[lat+1][lon]);
             sphere_colors->push_back(sphere_color_transform(vertices[lat][lon]));
             sphere_colors->push_back(sphere_color_transform(vertices[lat+1][lon]));
 
@@ -145,10 +182,12 @@ mesh get_sphere(int tesselation){
     for(int lon=0;lon<num_lon;lon++){
         sphere_vertices->push_back(vertices[num_lat-1][lon]);
         sphere_vertices->push_back(vec4(0,0,1,1));
+        sphere_uvs->push_back(textures[num_lat-1][lon]);
+        sphere_uvs->push_back(vec2(lon/num_lon,0));
         sphere_colors->push_back(sphere_color_transform(vertices[num_lat-1][lon]));
         sphere_colors->push_back(sphere_color_transform(vec4(0,0,1,1)));
     }
 
-    return mesh(sphere_vertices, sphere_colors, sphere_vertices->size(), GL_TRIANGLE_STRIP);
+    return mesh(sphere_vertices, sphere_colors, sphere_uvs,sphere_vertices->size(), GL_TRIANGLE_STRIP);
 
 }

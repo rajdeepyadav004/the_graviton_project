@@ -5,7 +5,7 @@ using namespace std;
 using namespace glm;
 
 
-extern GLuint programID;
+extern GLuint programID, textureID;
 
 
 render_component::render_component(const mesh & arg_mesh){
@@ -27,7 +27,13 @@ render_component::render_component(const mesh & arg_mesh){
     glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
     glBufferData(GL_ARRAY_BUFFER, m_mesh.m_colors->size()*sizeof((*m_mesh.m_colors)[0]), &(*m_mesh.m_colors)[0], GL_DYNAMIC_DRAW);
 
+    glGenBuffers(1, &texturebuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, texturebuffer);
+    glBufferData(GL_ARRAY_BUFFER, m_mesh.m_uvs->size()*sizeof((*m_mesh.m_uvs)[0]), &(*m_mesh.m_colors)[0], GL_DYNAMIC_DRAW);
+
     transformID = glGetUniformLocation(programID, "transform");
+    cerr<<m_mesh.texture_file<<"haha"<<endl;
+    texture = loadBMP_custom(m_mesh.texture_file.c_str()) ;
 
 }
 
@@ -48,10 +54,16 @@ void render_component::set_position(const vec3 & position){
     m_translation = glm::translate(mat4(1.f), position);
 }
 
-void render_component::render(GLuint programID){
+void render_component::render(){
 
 
     glUseProgram(programID);
+
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glUniform1i(textureID, 0);
+
 
     mat4 transform = m_translation * m_rotation * m_scale;
 
@@ -65,10 +77,16 @@ void render_component::render(GLuint programID){
     glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
     glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*) 0);
 
+    glEnableVertexAttribArray(2);
+    glBindBuffer(GL_ARRAY_BUFFER, texturebuffer);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, (void*) 0);
+
+
     glDrawArrays(m_mesh.mode, 0, m_mesh.triangle_strips);
     
     glDisableVertexAttribArray(0);    
     glDisableVertexAttribArray(1);
+    glDisableVertexAttribArray(2);
 
 
 }

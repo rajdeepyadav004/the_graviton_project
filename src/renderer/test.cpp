@@ -2,7 +2,9 @@
 
 
 #include "render_component.hpp"
+#include "camera.hpp"
 #include "models.hpp"
+#include "mesh.hpp"
 #include "gl_util.hpp"
 
 
@@ -13,17 +15,23 @@ int main(){
     
 
     vector<render_component> objects;
+    camera main_camera;
+    main_camera.set_projection_param(glm::radians(45.0f), (float)3/(float)2  , 0.1f, 100.0f);
+	main_camera.set_view_param(glm::vec3(0,0,10), glm::vec3(0,0,0), glm::vec3(0,1,0));
+
     // objects.push_back(render_component(get_cube()));
     
-    objects.push_back(render_component(get_sphere(30)));
+    mesh sphere = get_sphere(10);
+    mesh cube = get_cube();
+    sphere.set_texture("2k_sun.bmp");
 
-    // objects[0].translate(vec3(0,0,0));
+    objects.push_back(render_component(sphere));
     objects[0].scale(vec3(3,3,3));
-    // objects[1].translate(vec3(1.5,0,0));
 
     do{
+        main_camera.control(window);
         objects[0].rotate(glm::radians(0.05f), vec3(0,1,0));
-        render_gl(objects);
+        render_gl(objects, main_camera);
     }
     
     while(glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&

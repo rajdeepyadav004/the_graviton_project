@@ -1,0 +1,5 @@
+bin/
+src/.vscode
+src/.VSCodeCounter
+src/renderer/.vscode
+src/physics_engine/.vscode
