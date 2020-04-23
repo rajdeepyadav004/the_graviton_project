@@ -21,11 +21,19 @@ int main(){
 
     // objects.push_back(render_component(get_cube()));
     
+    generate_icosahedron(); 
     mesh sphere = get_sphere(10);
     mesh cube = get_cube();
-    sphere.set_texture("2k_sun.bmp");
+    mesh mesh2 = get_icosphere(5);
+    mesh mesh1;
+    mesh1.readObj("ico1.obj");
 
-    objects.push_back(render_component(sphere));
+    mesh1.set_texture("2k_sun.bmp");
+    mesh2.set_texture("2k_sun.bmp");
+
+
+
+    objects.push_back(render_component(mesh1));
     objects[0].scale(vec3(3,3,3));
 
     do{

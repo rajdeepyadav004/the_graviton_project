@@ -29,7 +29,7 @@ render_component::render_component(const mesh & arg_mesh){
 
     glGenBuffers(1, &texturebuffer);
     glBindBuffer(GL_ARRAY_BUFFER, texturebuffer);
-    glBufferData(GL_ARRAY_BUFFER, m_mesh.m_uvs->size()*sizeof((*m_mesh.m_uvs)[0]), &(*m_mesh.m_colors)[0], GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, m_mesh.m_uvs->size()*sizeof((*m_mesh.m_uvs)[0]), &(*m_mesh.m_uvs)[0], GL_DYNAMIC_DRAW);
 
     transformID = glGetUniformLocation(programID, "transform");
     cerr<<m_mesh.texture_file<<"haha"<<endl;
@@ -62,7 +62,7 @@ void render_component::render(){
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture);
-    glUniform1i(textureID, 0);
+    // glUniform1i(textureID, 0);
 
 
     mat4 transform = m_translation * m_rotation * m_scale;

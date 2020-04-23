@@ -14,10 +14,10 @@ void main(){
     frag_color = v_color;
     uvs = in_uvs;
 
-    // if( out_uvs[0] >= 0 && out_uvs[0] <= 1 && out_uvs[1] >= 0 && out_uvs[1] <= 0.5){
-    //     frag_color = vec4(0,1,0,1);
-    // }
-    // else{
+    // if(in_uvs[0] == 1){
     //     frag_color = vec4(1,0,0,1);
     // }
-}
+    // else{
+    //     frag_color = vec4(0,1,0,1);
+    // }
+}   

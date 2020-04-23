@@ -8,6 +8,10 @@
 
 mesh get_cube();
 mesh get_sphere(int tesselation);
-// mesh get_sexy_sphere(int tesselation);
+mesh get_icosphere(int recursion_depth);
+
+void generate_icosahedron();
+
+
 
 #endif
