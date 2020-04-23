@@ -26,14 +26,14 @@ int main(){
     mesh cube = get_cube();
     mesh mesh2 = get_icosphere(5);
     mesh mesh1;
-    mesh1.readObj("ico1.obj");
+    mesh1.readObj("models/ico5.obj");
 
-    mesh1.set_texture("2k_sun.bmp");
-    mesh2.set_texture("2k_sun.bmp");
+    mesh1.set_texture("images/2k_sun.bmp");
+    mesh2.set_texture("images/2k_sun.bmp");
 
 
 
-    objects.push_back(render_component(mesh1));
+    objects.push_back(render_component(mesh2));
     objects[0].scale(vec3(3,3,3));
 
     do{

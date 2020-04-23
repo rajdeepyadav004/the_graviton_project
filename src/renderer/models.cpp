@@ -198,7 +198,7 @@ mesh get_sphere(int tesselation){
 mesh get_icosphere(int recursion_depth){
 
     mesh icosahedron;
-    icosahedron.readObj("icosahedron.obj");
+    icosahedron.readObj("models/icosahedron.obj");
 
     for(int i=0;i<recursion_depth;i++){
         
@@ -284,7 +284,6 @@ mesh get_icosphere(int recursion_depth){
         icosahedron.m_uvs->push_back(icosahedron.texture_coordinates[it->vt3]);
     }
 
-    icosahedron.saveObj("ico1.obj");
 
     return icosahedron; 
 }
@@ -509,7 +508,7 @@ void generate_icosahedron(){
     f.vn1 = v1, f.vn2 = v2, f.vn3 = v3;
     icosahedron.faces.push_back(f);
 
-    icosahedron.saveObj("icosahedron.obj");
+    icosahedron.saveObj("models/icosahedron.obj");
 
 }
 
