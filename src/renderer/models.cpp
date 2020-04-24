@@ -102,34 +102,6 @@ mesh get_cube(){
     return mesh(cube_vertices, cube_colors, cube_uvs, 14, GL_TRIANGLE_STRIP);
 }
 
-// mesh get_sexy_sphere(int tesselation){
-
-//     double step_lat = pie / (2*tesselation), step_lon = pie / tesselation;
-//     vector<vec4> *sphere_vertices = new vector<vec4>, *sphere_colors = new vector<vec4>;
-
-//     vector<vector<vec4>> vertices;
-
-//     for(double theta = -pie/2; theta<=pie/2; theta+=step_lat){
-//         vector<vec4> temp;
-//         for(double phi = 0; phi<2*pie; phi += step_lon){
-
-//             double x,y,z;
-
-//             x = cos(theta)*cos(phi);
-//             y = cos(theta)*sin(phi);
-//             z = sin(theta)*sin(phi);
-
-//             sphere_vertices->push_back(vec4(x,y,z,1));
-//             sphere_colors->push_back((vec4(x,y,z,1)+vec4(1,1,1,1))*0.5f);
-//         }
-//     }    
-
-
-
-//     // return mesh(sphere_vertices, sphere_colors, sphere_vertices->size(), GL_TRIANGLE_STRIP);
-//     return mesh(sphere_vertices, sphere_colors, sphere_vertices->size(), GL_TRIANGLES);
-
-// }
 
 mesh get_sphere(int tesselation){
 
@@ -217,8 +189,6 @@ mesh get_icosphere(int recursion_depth){
             vec4 new_v1 = vec4(glm::normalize(vec3((v2+v3)*0.5f)), 1);
             vec4 new_v2 = vec4(glm::normalize(vec3((v3+v1)*0.5f)), 1);
             vec4 new_v3 = vec4(glm::normalize(vec3((v1+v2)*0.5f)), 1);
-
-
             
             vertices.push_back(vec4(vec3(new_v1),1));
             vertices.push_back(vec4(vec3(new_v2),1)); 
@@ -231,7 +201,6 @@ mesh get_icosphere(int recursion_depth){
             texture_coordinates.push_back(get_tex_sphere(new_v1));
             texture_coordinates.push_back(get_tex_sphere(new_v2));
             texture_coordinates.push_back(get_tex_sphere(new_v3));
-
 
             face f1,f2,f3,f4;
 
@@ -272,7 +241,6 @@ mesh get_icosphere(int recursion_depth){
 
 
     for(auto it = icosahedron.faces.begin(); it!=icosahedron.faces.end();++it){
-
         icosahedron.m_vertices->push_back(icosahedron.vertices[it->v1]);
         icosahedron.m_colors->push_back(icosahedron.vertices[it->v1]);
         icosahedron.m_uvs->push_back(icosahedron.texture_coordinates[it->vt1]);
@@ -284,8 +252,7 @@ mesh get_icosphere(int recursion_depth){
         icosahedron.m_uvs->push_back(icosahedron.texture_coordinates[it->vt3]);
     }
 
-
-    return icosahedron; 
+    return icosahedron;
 }
 
 void generate_icosahedron(){
@@ -303,7 +270,6 @@ void generate_icosahedron(){
     icosahedron.vertices.push_back(vec4(x,y,z,1));
     icosahedron.vertex_normals.push_back(vec3(x,y,z));
     icosahedron.texture_coordinates.push_back(vec2(u,v));
-
 
     theta = atan(0.5);
     for(phi = 0; phi <2*pie; phi+= 2*pie/5){

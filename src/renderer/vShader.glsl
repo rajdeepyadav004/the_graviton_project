@@ -13,11 +13,4 @@ void main(){
     gl_Position = MVP * transform * v_position;
     frag_color = v_color;
     uvs = in_uvs;
-
-    // if(in_uvs[0] == 1){
-    //     frag_color = vec4(1,0,0,1);
-    // }
-    // else{
-    //     frag_color = vec4(0,1,0,1);
-    // }
 }   

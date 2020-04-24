@@ -59,11 +59,9 @@ void render_component::render(){
 
     glUseProgram(programID);
 
-
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture);
-    // glUniform1i(textureID, 0);
-
+    glUniform1i(textureID, 0);
 
     mat4 transform = m_translation * m_rotation * m_scale;
 
@@ -81,12 +79,10 @@ void render_component::render(){
     glBindBuffer(GL_ARRAY_BUFFER, texturebuffer);
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, (void*) 0);
 
-
     glDrawArrays(m_mesh.mode, 0, m_mesh.triangle_strips);
     
     glDisableVertexAttribArray(0);    
     glDisableVertexAttribArray(1);
     glDisableVertexAttribArray(2);
-
-
+    
 }

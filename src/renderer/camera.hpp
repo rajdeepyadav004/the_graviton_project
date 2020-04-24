@@ -1,7 +1,6 @@
 #ifndef CAMERA
 #define CAMERA
 
-
 #include <iostream>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -35,6 +34,5 @@ public:
 
     void control(GLFWwindow* window);
 };
-
 
 #endif
