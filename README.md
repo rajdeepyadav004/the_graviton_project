@@ -6,9 +6,10 @@ TODO
 # make origami
 # selecting and focusing on objects
 # set fps and simulation parameters
-# scene-parse and scene generator
+# scene generator
 # clicking
 # adding shading
 # spline maker
 # make camera follow path
-# add Read
+# add documentation
+# make rendering more efficient

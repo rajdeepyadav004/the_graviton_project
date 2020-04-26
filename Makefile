@@ -29,10 +29,12 @@ SRC_GRAVITON = src/main.cpp src/renderer/render_component.cpp src/renderer/model
 			   src/renderer/mesh.cpp src/renderer/gl_util.cpp src/renderer/shader.cpp\
 			   src/renderer/camera.cpp src/renderer/texture.cpp\
 			   src/physics_engine/rigidBody.cpp\
-			   src/world.cpp 
+			   src/xml-parser/pugixml.cpp\
+			   src/world.cpp
 INC_GRAVITON = src/renderer/render_component.h src/renderer/models.h src/renderer/mesh.h\
 			   src/renderer/gl_util.hpp src/renderer/shader.hpp src/renderer/camera.cpp\
 			   src/physics_engine/rigidBody.hpp src/renderer/texture.hpp\
+			   src/xml-parser/pugixml.hpp\
 			   src/world.hpp
 
 

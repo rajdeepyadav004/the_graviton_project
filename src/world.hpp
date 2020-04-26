@@ -12,6 +12,7 @@ class world{
     GLFWwindow* window;
     
 public:
+    world(GLFWwindow* window,string xml_scene_file);
     world(GLFWwindow* arg_window,camera arg_camera);
     ~world();
     world(const world& world1);

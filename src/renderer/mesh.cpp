@@ -60,8 +60,15 @@ void mesh::set_texture(const char* arg_file){
 
 void mesh::readObj(string filename){
 
+    
+
     ifstream file(filename);
     string line;
+    
+    if(!file.is_open()){
+        cerr<<filename<<" not found. Closing"<<endl;
+        exit(1);
+    }
 
     while(getline(file, line)){
 
