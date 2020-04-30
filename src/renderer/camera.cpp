@@ -42,6 +42,7 @@ void camera::set_view_param(glm::vec3 arg_position, glm::vec3 arg_look_at, glm::
 }
 
 void camera::translate(glm::vec3 displacement){
+    
     this->m_position = glm::translate(mat4(1.f), displacement) * this->m_position;
     this->m_look_at = glm::translate(mat4(1.f), displacement) * this->m_look_at;
 }
@@ -66,27 +67,33 @@ mat4 camera::get_camera_matrix(){
 void camera::control(GLFWwindow* window){
 
     if(glfwGetKey (window, GLFW_KEY_W) == GLFW_PRESS){
-        this->translate(vec3(0,0,-0.02));
+        vec3 displacement = 0.02f * normalize(vec3(m_look_at - m_position));
+        this->translate(displacement);
     }
 
     if(glfwGetKey (window, GLFW_KEY_S) == GLFW_PRESS){
-        this->translate(vec3(0,0,0.02));
+        vec3 displacement = -0.02f * normalize(vec3(m_look_at - m_position));
+        this->translate(displacement);
     }
 
     if(glfwGetKey (window, GLFW_KEY_A) == GLFW_PRESS){
-        this->translate(vec3(-0.02,0,0));
+        vec3 displacement = -0.02f * normalize(vec3(cross(vec3(m_look_at - m_position), m_up_vector)));
+        this->translate(displacement);
     }
 
     if(glfwGetKey (window, GLFW_KEY_D) == GLFW_PRESS){
-        this->translate(vec3(0.02,0,0));
+        vec3 displacement = 0.02f * normalize(vec3(cross(vec3(m_look_at - m_position), m_up_vector)));
+        this->translate(displacement);
     }
 
     if(glfwGetKey (window, GLFW_KEY_Q) == GLFW_PRESS){
-        this->translate(vec3(0,-0.02,0));
+        vec3 displacement = 0.02f * normalize(m_up_vector);
+        this->translate(displacement);
     }
 
     if(glfwGetKey (window, GLFW_KEY_E) == GLFW_PRESS){
-        this->translate(vec3(0,0.02,0));
+        vec3 displacement = -0.02f * normalize(m_up_vector);
+        this->translate(displacement);
     }
     
     if(glfwGetKey (window, GLFW_KEY_UP) == GLFW_PRESS){
