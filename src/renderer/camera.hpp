@@ -30,6 +30,12 @@ public:
     void set_view_param(glm::vec3 arg_position, glm::vec3 arg_look_at, glm::vec3 arg_up_vector);
 
     void translate(glm::vec3 displacement);
+    void rotate_about_x(double angle);
+    void rotate_about_y(double angle);
+    void rotate_about_z(double angle);
+
+    void rotate_up(double angle);
+    
     mat4 get_camera_matrix();
 
     void control(GLFWwindow* window);

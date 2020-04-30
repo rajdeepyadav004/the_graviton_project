@@ -1,0 +1,15 @@
+<world name="haha">
+    <camera name = "camera1">
+    </camera>
+
+    <objects>
+
+        <object name = "haha">
+        </object>
+
+        <object name = "haha2">
+        </object>
+
+    </objects>
+
+</world>

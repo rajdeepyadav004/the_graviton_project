@@ -1,0 +1,32 @@
+
+
+<world name = "my second world">
+	<camera>
+		<projection fov="45" aspect_ratio="1.333" near_clip="0.1" far_clip="100"/>
+		<position x="0" y="0" z="10"/>
+		<lookat x="0" y="0" z="0"/>
+		<up x="0" y="1" z="0"/>
+	</camera>
+
+	<objects>
+		<object>
+			<mass m="10"/>
+			<radius r="1"/>
+			<position x="0" y="0" z="0"/>
+			<velocity x="0" y="0" z="0"/>
+			<mesh file="models/ico3.obj"/>
+			<texture file="images/2k_sun.bmp"/>
+		</object>
+		<object>
+			<mass m="10"/>
+			<radius r="1"/>
+			<position x="2.5" y="0" z="0"/>
+			<velocity x="0" y="0" z="0"/>
+			<mesh file="models/ico3.obj"/>
+			<texture file="images/2k_sun.bmp"/>
+		</object>
+	</objects>
+
+
+</world>
+

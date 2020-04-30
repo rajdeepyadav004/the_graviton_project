@@ -46,6 +46,24 @@ void camera::translate(glm::vec3 displacement){
     this->m_look_at = glm::translate(mat4(1.f), displacement) * this->m_look_at;
 }
 
+void camera::rotate_about_x(double angle){
+
+    cerr<<m_look_at[0]<<" "<<m_look_at[1]<<" "<<m_look_at[2]<<endl;
+    vec3 origin = m_position, axis = cross(vec3(m_look_at), m_up_vector);
+    m_look_at = glm::rotate(mat4(1.f), (GLfloat) angle, axis) * (m_look_at - m_position) - m_position;
+    m_up_vector = glm::rotate(mat4(1.f), (GLfloat) angle, axis) * (vec4(m_up_vector,1) - m_position) - m_position;
+
+
+}
+void camera::rotate_about_y(double angle){
+
+}
+void camera::rotate_about_z(double angle){
+
+}
+
+
+
 mat4 camera::get_camera_matrix(){
 
     mat4 projection_matrix = glm::perspective(m_fov, m_aspect_ratio, m_near_clip, m_far_clip);
@@ -72,13 +90,32 @@ void camera::control(GLFWwindow* window){
         this->translate(vec3(0.02,0,0));
     }
 
-    if(glfwGetKey (window, GLFW_KEY_DOWN) == GLFW_PRESS){
+    if(glfwGetKey (window, GLFW_KEY_Q) == GLFW_PRESS){
         this->translate(vec3(0,-0.02,0));
     }
 
-    if(glfwGetKey (window, GLFW_KEY_UP) == GLFW_PRESS){
+    if(glfwGetKey (window, GLFW_KEY_E) == GLFW_PRESS){
+        this->translate(vec3(0,0.02,0));
+    }
+    
+    
+    if(glfwGetKey (window, GLFW_KEY_E) == GLFW_PRESS){
         this->translate(vec3(0,0.02,0));
     }
 
+    if(glfwGetKey (window, GLFW_KEY_UP) == GLFW_PRESS){
+        this->rotate_about_x(0.1);
+    }
+    if(glfwGetKey (window, GLFW_KEY_DOWN) == GLFW_PRESS){
+        this->rotate_about_x(-0.1);
+    }
+    if(glfwGetKey (window, GLFW_KEY_RIGHT) == GLFW_PRESS){
+        // this->translate(vec3(0,0.02,0));
+        this->rotate_about_y(-0.1f);
+    }
+    if(glfwGetKey (window, GLFW_KEY_LEFT) == GLFW_PRESS){
+        // this->translate(vec3(0,0.02,0));
+        this->rotate_about_y(0.1f);
+    }
 
 }

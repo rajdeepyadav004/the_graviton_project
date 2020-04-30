@@ -32,7 +32,6 @@ render_component::render_component(const mesh & arg_mesh){
     glBufferData(GL_ARRAY_BUFFER, m_mesh.m_uvs->size()*sizeof((*m_mesh.m_uvs)[0]), &(*m_mesh.m_uvs)[0], GL_DYNAMIC_DRAW);
 
     transformID = glGetUniformLocation(programID, "transform");
-    cerr<<m_mesh.texture_file<<"haha"<<endl;
     texture = loadBMP_custom(m_mesh.texture_file.c_str()) ;
 
 }
@@ -61,6 +60,14 @@ void render_component::render(){
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // Not GL_CLAMP_TO_EDGE.
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); // Not GL_CLAMP_TO_EDGE.
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    // glGenerateMipmap(GL_TEXTURE_2D);
+
     glUniform1i(textureID, 0);
 
     mat4 transform = m_translation * m_rotation * m_scale;

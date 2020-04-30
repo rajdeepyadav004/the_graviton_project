@@ -13,3 +13,4 @@ TODO
 # make camera follow path
 # add documentation
 # make rendering more efficient
+# https://mft-dev.dk/uv-mapping-sphere/ 

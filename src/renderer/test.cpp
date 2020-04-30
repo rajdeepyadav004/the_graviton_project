@@ -15,17 +15,19 @@ int main(){
     main_camera.set_projection_param(glm::radians(45.0f), (float)3/(float)2  , 0.1f, 100.0f);
 	main_camera.set_view_param(glm::vec3(0,0,10), glm::vec3(0,0,0), glm::vec3(0,1,0));
 
+    // mesh mesh1 = get_icosphere(3);
     mesh mesh1;
-    mesh1.readObj("models/ico5.obj");
-    mesh1.set_texture("images/2k_sun.bmp");
+    mesh1.readObj("models/ico3.obj");
+    
+    mesh1.set_texture("images/earth.bmp");
+
 
     objects.push_back(render_component(mesh1));
-    objects.push_back(render_component(mesh1));
     objects[0].scale(vec3(3,3,3));
-    objects[1].translate(vec3(4,0,0));
+    objects[0].rotate(glm::radians(90.f), vec3(1,0,0));
     do{
         main_camera.control(window);
-        objects[0].rotate(glm::radians(0.05f), vec3(0,1,0));
+        objects[0].rotate(glm::radians(0.05f), vec3(0,0,1));
         render_gl(objects, main_camera);
     }
     

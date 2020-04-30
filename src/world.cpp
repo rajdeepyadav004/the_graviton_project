@@ -9,7 +9,7 @@ world::world(GLFWwindow* window ,string xml_scene_file){
     this->window = window;
 
     pugi::xml_document doc;
-    pugi::xml_parse_result result = doc.load_file("scenes/scene1.xml");
+    pugi::xml_parse_result result = doc.load_file(xml_scene_file.c_str());
 
     pugi::xml_node w = doc.child("world");
     cout<<"Loaded "<<w.attribute("name").value()<<endl;
@@ -47,7 +47,7 @@ world::world(GLFWwindow* window ,string xml_scene_file){
     for(pugi::xml_node obj=Objs.child("object"); obj; obj =  obj.next_sibling()){
 
         double mass = stod(obj.child("mass").attribute("m").value());
-
+        double radius = stod(obj.child("radius").attribute("r").value());
         double px,py,pz;
         px = stod(obj.child("position").attribute("x").value());
         py = stod(obj.child("position").attribute("y").value());
@@ -60,10 +60,8 @@ world::world(GLFWwindow* window ,string xml_scene_file){
         mesh mesh1;
         mesh1.readObj(obj.child("mesh").attribute("file").value());
         mesh1.set_texture(obj.child("texture").attribute("file").value());
-        this->insert(rigidbody(mass, {px,py,pz},{vx,vy,vz}), render_component(mesh1));
+        this->insert(rigidbody(mass,radius,{px,py,pz},{vx,vy,vz}), render_component(mesh1));
     }
-
-
 
 }
 

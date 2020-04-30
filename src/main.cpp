@@ -14,8 +14,7 @@ int main(){
     init_gl();
     
     int frames=0;
-    world main_world(window, "sceness/scene1.xml");
-
+    world main_world(window, "scenes/scene1.xml");
 
     do {        
         main_world.simulate(10);
