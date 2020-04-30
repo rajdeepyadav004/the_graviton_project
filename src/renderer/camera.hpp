@@ -7,6 +7,9 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "render_component.hpp"
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/quaternion.hpp>
 
 using namespace std;
 using namespace glm;
@@ -30,10 +33,7 @@ public:
     void set_view_param(glm::vec3 arg_position, glm::vec3 arg_look_at, glm::vec3 arg_up_vector);
 
     void translate(glm::vec3 displacement);
-    void rotate_about_x(double angle);
-    void rotate_about_y(double angle);
-    void rotate_about_z(double angle);
-
+    void rotate(GLfloat angle,glm::vec3 axis);
     void rotate_up(double angle);
     
     mat4 get_camera_matrix();

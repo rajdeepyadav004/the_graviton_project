@@ -3,3 +3,6 @@ src/.vscode
 src/.VSCodeCounter
 src/renderer/.vscode
 src/physics_engine/.vscode
+src/xml-parser/a.out
+src/xml-parser/a.hpp
+src/xml-parser/test.cpp

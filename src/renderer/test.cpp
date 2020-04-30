@@ -27,7 +27,7 @@ int main(){
     objects[0].rotate(glm::radians(90.f), vec3(1,0,0));
     do{
         main_camera.control(window);
-        objects[0].rotate(glm::radians(0.05f), vec3(0,0,1));
+        // objects[0].rotate(glm::radians(0.05f), vec3(0,0,1));
         render_gl(objects, main_camera);
     }
     
